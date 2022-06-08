@@ -1,0 +1,207 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.*;
+  
+  <span style='color:#3F5FBF'>/**
+   * Clase Receta, compuesta de dos
+   * colecciones, una lista para los
+   * Ingredientes y un LinkedHashSet para
+   * almacenar los Pasos.
+   *
+   * @author Daniel Campos Tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Receta <span style='font-weight:bold;color:#D3171B'>{</span>
+  
+    <span style='font-weight:bold;color:#7B0052;'>private</span> String nombre;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> LinkedList&lt;Paso&gt; pasos;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>double</span> precioTotal;
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor completo de la clase
+     * Receta.
+     *
+     * @param nombre
+     * @param pasos
+     * @param precioTotal
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Receta(String nombre, LinkedList pasos, <span style='font-weight:bold;color:#7B0052;'>double</span> precioTotal) <span style='font-weight:bold;color:#D3171B'>{</span>
+      setNombre(nombre);
+      this.pasos = pasos;
+      this.precioTotal = precioTotal;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor con un parametro
+     *
+     * @param nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Receta(String nombre) <span style='font-weight:bold;color:#D3171B'>{</span>
+      setNombre(nombre);
+      this.pasos = <span style='font-weight:bold;color:#7B0052;'>new</span> LinkedList&lt;&gt;();
+      this.precioTotal = precioTotal();
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * constructor vacio de la clase
+     * Receta.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Receta() <span style='font-weight:bold;color:#D3171B'>{</span>
+      setNombre(<span style='color:#2A00FF'>""</span>);
+      this.pasos = <span style='font-weight:bold;color:#7B0052;'>new</span> LinkedList&lt;&gt;();
+      this.precioTotal = precioTotal();
+  
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que devuelve el nombre de
+     * una Receta.
+     *
+     * @return nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String getNombre() <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      <span style='font-weight:bold;color:#7B0052;'>return</span> paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo para cambiar el nombre a una
+     * Receta.
+     *
+     * @param nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setNombre(String nombre) <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      this.nombre = paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de calcular el
+     * precio total de una Receta.
+     *
+     * @return precioTotal
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> precioTotal() <span style='font-weight:bold;color:#D3171B'>{</span>
+      precioTotal = 0;
+      HashSet&lt;Ingrediente&gt; ingredientes = <span style='font-weight:bold;color:#7B0052;'>new</span> HashSet&lt;&gt;();
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (Paso p : pasos) <span style='font-weight:bold;color:#D3171B'>{</span>
+        ingredientes.add(p.getIngrediente());
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (Ingrediente i : ingredientes) <span style='font-weight:bold;color:#D3171B'>{</span>
+        precioTotal += i.getPrecio();
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> redondeaPrecio(precioTotal);
+  
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * funcion que redondea el precio a dos decimales
+     * @param precioTotal
+     * @return
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> redondeaPrecio(<span style='font-weight:bold;color:#7B0052;'>double</span> precioTotal) <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> Math.round(this.precioTotal * 100.0) / 100.0;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de devolver los
+     * Ingredientes de una Receta.
+     *
+     * @return cadena de ingredientes
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String imprimirIngredientes() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='color:#3F7F5F'>//creamos un set de strings para evitar ingredientes repetidos
+  </span>    LinkedHashSet&lt;String&gt; nombreIngredientes = <span style='font-weight:bold;color:#7B0052;'>new</span> LinkedHashSet&lt;&gt;();
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (Paso p : pasos) <span style='font-weight:bold;color:#D3171B'>{</span>
+        nombreIngredientes.add(p.getIngrediente().getNombre());
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      String s = <span style='color:#2A00FF'>""</span>;
+      String punto = <span style='color:#2A00FF'>"."</span>;
+      String coma = <span style='color:#2A00FF'>","</span>;
+      String fin = <span style='color:#2A00FF'>""</span>;
+      <span style='color:#3F7F5F'>//uso un iterador para a;adir coma o punto despues de cada ingrediente.
+  </span>    Iterator&lt;String&gt; it = nombreIngredientes.iterator();
+      <span style='font-weight:bold;color:#7B0052;'>while</span> (it.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
+        String i = it.next();
+        <span style='font-weight:bold;color:#7B0052;'>if</span> (it.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
+          fin = coma;
+        <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+          fin = punto;
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+        s = s.concat(i + fin);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> s;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Este metodo es usado a la hora de
+     * exportar las recetas al txt.
+     *
+     * @return cadena de pasos
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String imprimirPasosExportar() <span style='font-weight:bold;color:#D3171B'>{</span>
+      String s = <span style='color:#2A00FF'>""</span>;
+      Iterator&lt;Paso&gt; it = pasos.iterator();
+      <span style='font-weight:bold;color:#7B0052;'>while</span> (it.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
+        Paso p = it.next();
+        s = s.concat(p.getAccion().getNombre() + <span style='color:#2A00FF'>"-"</span> + p.getIngrediente().getNombre() + <span style='color:#2A00FF'>"-"</span> + p.getIngrediente().getPrecio() + <span style='color:#2A00FF'>"-"</span> + p.getTiempo() + <span style='color:#2A00FF'>"-"</span> + p.getDescripcion() + <span style='color:#2A00FF'>"|"</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> s;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de añadir un Paso
+     * a una Receta, se creara un Paso
+     * desde 0.
+     *
+     * @param a Accion
+     * @param i Ingrediente
+     * @param t tiempo
+     * @param descripcion
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> addPaso(Accion a, Ingrediente i, <span style='font-weight:bold;color:#7B0052;'>double</span> t, String descripcion) <span style='font-weight:bold;color:#D3171B'>{</span>
+      Paso p = <span style='font-weight:bold;color:#7B0052;'>new</span> Paso(a, i, t, descripcion);
+      pasos.add(p);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo destinado a calcular el
+     * tiempo necesario para cocinar una
+     * Receta.
+     *
+     * @return tiempo total estimado de la
+     * receta.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> calcularTiempo() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>double</span> total = 0;
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (Paso p : pasos) <span style='font-weight:bold;color:#D3171B'>{</span>
+        total += p.getTiempo();
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> total;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de mostrar los
+     * pasos a seguir para cocinar una
+     * Receta.
+     *
+     * @param r es la receta a cocinar
+     *
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> elaboracion(Receta r) <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; pasos.size(); i++) <span style='font-weight:bold;color:#D3171B'>{</span>
+        System.out.println(<span style='color:#2A00FF'>"Paso "</span> + (i + 1) + <span style='color:#2A00FF'>" -&gt; "</span> + pasos.get(i).imprimirPaso());
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que sirve para devolver los
+     * parametros de una Receta.
+     *
+     * @return
+     */</span>
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String toString() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"Receta{"</span> + <span style='color:#2A00FF'>"nombre="</span> + getNombre() + <span style='color:#2A00FF'>", ingredientes="</span> + imprimirIngredientes() + <span style='color:#2A00FF'>", precio="</span> + precioTotal() + <span style='color:#2A00FF'>'}'</span>;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

@@ -1,0 +1,116 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.Objects;
+  
+  <span style='color:#3F5FBF'>/**
+   * clase Ingrediente, almacena la información general de un Ingrediente.
+   * @author Daniel Campos Tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Ingrediente <span style='font-weight:bold;color:#D3171B'>{</span>
+  
+    <span style='font-weight:bold;color:#7B0052;'>private</span> String nombre;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>double</span> precio;
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor completo de Ingrediente.
+     * @param nombre nombre del ingrediente.
+     * @param precio precio unitario del ingrediente.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Ingrediente(String nombre, <span style='font-weight:bold;color:#7B0052;'>double</span> precio) <span style='font-weight:bold;color:#D3171B'>{</span>
+      setNombre(nombre);
+      setPrecio(precio);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     *
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Ingrediente() <span style='font-weight:bold;color:#D3171B'>{</span>
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * metodo para devolver el nombre del ingrediente.
+     * @return nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String getNombre() <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      <span style='font-weight:bold;color:#7B0052;'>return</span> paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo para cambiar el nombre de un ingrediente.
+     * @param nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setNombre(String nombre) <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      this.nombre = paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo para devolver el precio de un ingrediente.
+     * @return precio
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> getPrecio() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> precio;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo para cambiar el precio de un ingrediente.
+     * @param precio
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setPrecio(<span style='font-weight:bold;color:#7B0052;'>double</span> precio) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.precio = precio;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    
+    <span style='color:#3F5FBF'>/**
+     * metodo que devuelve los atributos de un ingrediente.
+     * @return
+     */</span>
+    
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String toString() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"Ingrediente{"</span> + <span style='color:#2A00FF'>"nombre="</span> + nombre + <span style='color:#2A00FF'>", precio="</span> + precio + <span style='color:#2A00FF'>'}'</span>;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo hashCode
+     * @return
+     */</span>
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> hashCode() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>int</span> hash = 3;
+      hash = 71 * hash + Objects.hashCode(this.nombre);
+      hash = 71 * hash + (<span style='font-weight:bold;color:#7B0052;'>int</span>) (Double.doubleToLongBits(this.precio) ^ (Double.doubleToLongBits(this.precio) &gt;&gt;&gt; 32));
+      <span style='font-weight:bold;color:#7B0052;'>return</span> hash;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo equals
+     * @param obj
+     * @return
+     */</span>
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>boolean</span> equals(Object obj) <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (<span style='font-weight:bold;color:#7B0052;'>this</span> == obj) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>true</span>;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (obj == <span style='font-weight:bold;color:#7B0052;'>null</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (getClass() != obj.getClass()) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>final</span> Ingrediente other = (Ingrediente) obj;
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (!Objects.equals(this.nombre, other.nombre)) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='font-weight:bold;color:#7B0052;'>true</span>;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    
+  
+    
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

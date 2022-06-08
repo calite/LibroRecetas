@@ -1,0 +1,305 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='font-weight:bold;color:#7B0052;'>import</span> java.io.*;
+  <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.*;
+  <span style='font-weight:bold;color:#7B0052;'>import</span> javax.swing.*;
+  
+  <span style='color:#3F5FBF'>/**
+   * Clase Restaurante, encargada de
+   * almacenar las Recetas en un Mapa.
+   * Ademas se han desarrollado una serie
+   * de metodos para trabajar desde
+   * ficheros.
+   *
+   * @author Daniel Campos Tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Restaurante <span style='font-weight:bold;color:#D3171B'>{</span>
+    
+    <span style='font-weight:bold;color:#7B0052;'>private</span> TreeMap&lt;Integer, Receta&gt; recetas;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> File fichero;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> HashMap&lt;String,Ingrediente&gt; ingredientesExistentes;
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor de la clase
+     * Restaurante.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Restaurante() <span style='font-weight:bold;color:#D3171B'>{</span>
+      recetas = <span style='font-weight:bold;color:#7B0052;'>new</span> TreeMap&lt;&gt;();
+      fichero = <span style='font-weight:bold;color:#7B0052;'>new</span> File(<span style='color:#2A00FF'>"recetas.txt"</span>);
+      ingredientesExistentes = <span style='font-weight:bold;color:#7B0052;'>new</span> HashMap&lt;&gt;();
+      
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo destinado a crear Recetas.
+     * Cuenta con entrada construida con
+     * JOptionPane.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> crearReceta() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='color:#3F7F5F'>//declaramos variables
+  </span>    String precioIngrediente = <span style='color:#2A00FF'>""</span>;
+      String nroIngredientes = <span style='color:#2A00FF'>""</span>;
+      <span style='font-weight:bold;color:#7B0052;'>int</span> limite = 0;
+      <span style='color:#3F7F5F'>//creamos un jframe
+  </span>    JFrame jf = <span style='font-weight:bold;color:#7B0052;'>new</span> JFrame();
+      <span style='color:#3F7F5F'>//lo dejamos siempre encima, para evitar hacer alt+tab
+  </span>    jf.setAlwaysOnTop(<span style='font-weight:bold;color:#7B0052;'>true</span>);
+      <span style='color:#3F7F5F'>//preguntamos por nombre receta
+  </span>    String nombreReceta = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce el nombre de la receta: "</span>);
+      <span style='color:#3F7F5F'>//creamos una receta nueva
+  </span>    Receta r = <span style='font-weight:bold;color:#7B0052;'>new</span> Receta(nombreReceta);
+      <span style='color:#3F7F5F'>//preguntamos por el numero de ingredientes
+  </span>    <span style='font-weight:bold;color:#7B0052;'>boolean</span> confirmaNroIngredientes = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#7B0052;'>while</span> (confirmaNroIngredientes != <span style='font-weight:bold;color:#7B0052;'>true</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+          nroIngredientes = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce el numero de ingrediente: "</span>);
+          limite = Integer.parseInt(nroIngredientes);
+          confirmaNroIngredientes = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+        <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (NumberFormatException e) <span style='font-weight:bold;color:#D3171B'>{</span>
+          confirmaNroIngredientes = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+          System.out.println(<span style='color:#2A00FF'>"Nro Ingredientes no valido."</span>);
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='color:#3F7F5F'>//array con ingredientes para pasarselo al siguiente paso, el menu desplegable
+  </span>    Ingrediente[] listaIngredientes = <span style='font-weight:bold;color:#7B0052;'>new</span> Ingrediente[limite];
+      <span style='color:#3F7F5F'>//bucle para preguntar por nro total ingredientes
+  </span>    <span style='font-weight:bold;color:#7B0052;'>for</span> (<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; limite; i++) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='color:#3F7F5F'>//creamos ingredientes y añadimos al array
+  </span>      Ingrediente ing = <span style='font-weight:bold;color:#7B0052;'>new</span> Ingrediente();
+        String nombreIngrediente = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce el nombre del ingrediente Nº"</span>+ (i+1) +<span style='color:#2A00FF'>": "</span>);
+        <span style='color:#3F7F5F'>//comprobamos si existe el ingrediente anteriormente.
+  </span>      <span style='font-weight:bold;color:#7B0052;'>if</span> (comprobarExistenciaIngrediente(nombreIngrediente) == <span style='font-weight:bold;color:#7B0052;'>false</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='color:#3F7F5F'>//si no existe en el mapa lo creamos.
+  </span>        <span style='font-weight:bold;color:#7B0052;'>boolean</span> confirmaPrecioIngrediente = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+          <span style='font-weight:bold;color:#7B0052;'>while</span> (confirmaPrecioIngrediente != <span style='font-weight:bold;color:#7B0052;'>true</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+            <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+              precioIngrediente = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce el precio de "</span> + nombreIngrediente + <span style='color:#2A00FF'>": "</span>);
+              precioIngrediente = precioIngrediente.replaceAll(<span style='color:#2A00FF'>","</span>, <span style='color:#2A00FF'>"."</span>);
+              confirmaPrecioIngrediente = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+            <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (NumberFormatException e) <span style='font-weight:bold;color:#D3171B'>{</span>
+              confirmaPrecioIngrediente = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+              System.out.println(<span style='color:#2A00FF'>"El precio no es valido"</span>);
+            <span style='font-weight:bold;color:#D3171B'>}</span>
+          <span style='font-weight:bold;color:#D3171B'>}</span>
+          ing = <span style='font-weight:bold;color:#7B0052;'>new</span> Ingrediente(nombreIngrediente, Double.parseDouble(precioIngrediente));
+        <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='color:#3F7F5F'>//si el ingrediente existe lo usaremos para la creacion de la receta.
+  </span>        ing = ingredientesExistentes.get(nombreIngrediente);
+          JOptionPane.showMessageDialog(null, <span style='color:#2A00FF'>"Recopilando informacion del ingrediente: "</span> + nombreIngrediente, nombreIngrediente + <span style='color:#2A00FF'>" ya existente"</span>, JOptionPane.WARNING_MESSAGE);
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+        
+        listaIngredientes[i] = ing;
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='color:#3F7F5F'>//bucle para preguntar por los pasos
+  </span>    <span style='font-weight:bold;color:#7B0052;'>boolean</span> confirmacion = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+      <span style='font-weight:bold;color:#7B0052;'>do</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='font-weight:bold;color:#7B0052;'>int</span> opcion = JOptionPane.showConfirmDialog(jf, <span style='color:#2A00FF'>"Quieres añadir mas pasos?"</span>);
+        System.out.println(opcion);
+        <span style='font-weight:bold;color:#7B0052;'>if</span> (opcion == 1) <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='color:#3F7F5F'>//para salir del bucle
+  </span>        confirmacion = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+        <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='color:#3F7F5F'>//creamos el siguiente paso del menu con la lista de ingredientes
+  </span>        Object seleccionIngrediente = JOptionPane.showInputDialog(
+                  jf,
+                  <span style='color:#2A00FF'>"Lista ingredientes"</span>,
+                  <span style='color:#2A00FF'>"Creacion de pasos"</span>,
+                  JOptionPane.QUESTION_MESSAGE,
+                  null,
+                  listaIngredientes,
+                  <span style='font-weight:bold;color:#7B0052;'>null</span>
+          );
+          String p = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Accion a realizar: "</span>);
+          String t = <span style='color:#2A00FF'>""</span>;
+          <span style='font-weight:bold;color:#7B0052;'>boolean</span> confirmaTiempoPaso = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+          <span style='font-weight:bold;color:#7B0052;'>while</span> (confirmaTiempoPaso != <span style='font-weight:bold;color:#7B0052;'>true</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+            <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+              t = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce un tiempo estimado: "</span>);
+              <span style='color:#3F7F5F'>//reemplazamos "," por "."
+  </span>            t = t.replaceAll(<span style='color:#2A00FF'>","</span>, <span style='color:#2A00FF'>"."</span>);
+              <span style='color:#3F7F5F'>//En caso de que el tiempo este vacio lo sustituimos por 0
+  </span>            <span style='font-weight:bold;color:#7B0052;'>if</span> (t.isBlank() || t.isEmpty()) <span style='font-weight:bold;color:#D3171B'>{</span>
+                t = <span style='color:#2A00FF'>"0"</span>;
+              <span style='font-weight:bold;color:#D3171B'>}</span>
+              confirmaTiempoPaso = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+            <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (NumberFormatException e) <span style='font-weight:bold;color:#D3171B'>{</span>
+              System.out.println(<span style='color:#2A00FF'>"Eso no es un numero valido."</span>);
+              confirmaTiempoPaso = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+            <span style='font-weight:bold;color:#D3171B'>}</span>
+          <span style='font-weight:bold;color:#D3171B'>}</span>
+          String descripcion = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Describe el paso con detalle: "</span>);
+          <span style='font-weight:bold;color:#7B0052;'>if</span> (descripcion.isBlank() || descripcion.isEmpty()) <span style='font-weight:bold;color:#D3171B'>{</span>
+            descripcion = <span style='color:#2A00FF'>"Sin descripcion"</span>;
+          <span style='font-weight:bold;color:#D3171B'>}</span>
+          Accion accion = <span style='font-weight:bold;color:#7B0052;'>new</span> Accion(p);
+          r.addPaso(accion, (Ingrediente) seleccionIngrediente, Double.parseDouble(t), descripcion);
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>while</span> (confirmacion != <span style='font-weight:bold;color:#7B0052;'>false</span>);
+      <span style='color:#3F7F5F'>//se añade la receta a la lista | esto ayuda a la hora de editar una receta.
+  </span>    addReceta(r);
+      System.out.println(<span style='color:#2A00FF'>"receta creada."</span>);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo destinado para añadir una
+     * Receta al Mapa de Recetas.
+     *
+     * @param r se le debe pasar como
+     * parametro una Receta.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> addReceta(Receta r) <span style='font-weight:bold;color:#D3171B'>{</span>
+      recetas.put(recetas.size() + 1, r);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo para eliminar una Receta
+     * almacenada en el mapa.
+     *
+     * @param n se le debe pasar la
+     * posicion en el mapa de la Receta a
+     * borrar.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> delReceta(<span style='font-weight:bold;color:#7B0052;'>int</span> n) <span style='font-weight:bold;color:#D3171B'>{</span>
+      recetas.remove(n);
+      
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de recorrer el
+     * mapa e imprimir su contenido.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> imprimirRecetas() <span style='font-weight:bold;color:#D3171B'>{</span>
+      System.out.println(<span style='color:#2A00FF'>"Listado de recetas: "</span>);
+      System.out.println(<span style='color:#2A00FF'>"_______________________________________________________"</span>);
+      System.out.printf(<span style='color:#2A00FF'>"%s %20s %20s\n"</span>, <span style='color:#2A00FF'>"Nº"</span>, <span style='color:#2A00FF'>"Nombre"</span>, <span style='color:#2A00FF'>"Precio"</span>);
+      System.out.println(<span style='color:#2A00FF'>"_______________________________________________________"</span>);
+      <span style='font-weight:bold;color:#7B0052;'>for</span> (Integer num : recetas.keySet()) <span style='font-weight:bold;color:#D3171B'>{</span>
+        Receta r = recetas.get(num);
+        System.out.printf(<span style='color:#2A00FF'>"\n%s %21s %20s "</span>, num, r.getNombre(), r.precioTotal() + <span style='color:#2A00FF'>"€"</span>);
+        System.out.printf(<span style='color:#2A00FF'>"\n%s %10s"</span>, <span style='color:#2A00FF'>"Ingredientes:"</span>, r.imprimirIngredientes());
+        System.out.println(<span style='color:#2A00FF'>"\n_______________________________________________________"</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo encargado de cocinar la
+     * Receta.
+     *
+     * @param n se le debe pasar la
+     * posicion en la mapa de la Receta a
+     * cocinar.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> cocinarReceta(<span style='font-weight:bold;color:#7B0052;'>int</span> n) <span style='font-weight:bold;color:#D3171B'>{</span>
+      System.out.println(<span style='color:#2A00FF'>"Preparando receta de: "</span> + recetas.get(n).getNombre() + <span style='color:#2A00FF'>"."</span>);
+      Receta r = recetas.get(n);
+      r.elaboracion(r);
+      System.out.println(<span style='color:#2A00FF'>"Tiempo estimado: "</span> + r.calcularTiempo() + <span style='color:#2A00FF'>" min"</span>);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo creado para exportar
+     * recetas, se le pasa un parametro
+     * bool para crear nuevo fichero.
+     *
+     * @param guardar true para crear
+     * nuevo fichero
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> exportarRecetas(<span style='font-weight:bold;color:#7B0052;'>boolean</span> guardar) <span style='font-weight:bold;color:#D3171B'>{</span>
+      String nombreFichero = <span style='color:#2A00FF'>"recetas.txt"</span>;
+      <span style='color:#3F7F5F'>/*metodo para exportar recetas a .txt*/</span>
+      <span style='font-weight:bold;color:#7B0052;'>if</span> (guardar == <span style='font-weight:bold;color:#7B0052;'>true</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='color:#3F7F5F'>//creamos un jframe
+  </span>      JFrame jf = <span style='font-weight:bold;color:#7B0052;'>new</span> JFrame();
+        <span style='color:#3F7F5F'>//lo dejamos siempre encima, para evitar tener que hacer alt+tab
+  </span>      jf.setAlwaysOnTop(<span style='font-weight:bold;color:#7B0052;'>true</span>);
+        nombreFichero = JOptionPane.showInputDialog(jf, <span style='color:#2A00FF'>"Introduce el nombre del fichero."</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='color:#3F7F5F'>//declaramos un objeto que a su vez crea un fichero
+  </span>      FileWriter escritura = <span style='font-weight:bold;color:#7B0052;'>new</span> FileWriter(<span style='font-weight:bold;color:#7B0052;'>new</span> File(nombreFichero));
+        <span style='color:#3F7F5F'>//recorremos nueestro mapa de recetas
+  </span>      <span style='font-weight:bold;color:#7B0052;'>for</span> (Integer num : recetas.keySet()) <span style='font-weight:bold;color:#D3171B'>{</span>
+          Receta r = recetas.get(num);
+          <span style='color:#3F7F5F'>//preparamos la cadena a almacenar
+  </span>        String receta = num + <span style='color:#2A00FF'>";"</span> + r.getNombre() + <span style='color:#2A00FF'>";"</span> + r.precioTotal() + <span style='color:#2A00FF'>";"</span> + r.imprimirPasosExportar();
+          <span style='color:#3F7F5F'>//declaramos un objeto de dicha clase y el anterior
+  </span>        PrintWriter pw = <span style='font-weight:bold;color:#7B0052;'>new</span> PrintWriter(escritura);
+          <span style='color:#3F7F5F'>//imprimimos en el fichero la cadena creada
+  </span>        pw.println(receta);
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+        escritura.close();
+      <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (IOException e) <span style='font-weight:bold;color:#D3171B'>{</span>
+        System.out.println(<span style='color:#2A00FF'>"No se encuentra el fichero"</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>finally</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+        
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      System.out.println(<span style='color:#2A00FF'>"Fichero exportado, nombre del fichero: "</span> + nombreFichero);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Metodo creado para importar
+     * recetas, nos permite tener una bbdd
+     * en texto plano.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> importarRecetas() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+        <span style='color:#3F7F5F'>//creamos un objeto de dicho tipo y le pasamos el fichero
+  </span>      FileReader entrada = <span style='font-weight:bold;color:#7B0052;'>new</span> FileReader(fichero);
+        <span style='color:#3F7F5F'>//declaramos un buffer
+  </span>      BufferedReader mibuffer = <span style='font-weight:bold;color:#7B0052;'>new</span> BufferedReader(entrada);
+        String linea = <span style='color:#2A00FF'>""</span>;
+        <span style='font-weight:bold;color:#7B0052;'>while</span> (linea != <span style='font-weight:bold;color:#7B0052;'>null</span>) <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+            <span style='color:#3F7F5F'>//vamos recogiendo cada linea del fichero
+  </span>          linea = mibuffer.readLine();
+            <span style='color:#3F7F5F'>//se separan los elementos
+  </span>          String[] datosReceta = linea.split(<span style='color:#2A00FF'>";"</span>);
+            String nombreReceta = datosReceta[1];
+            String precioReceta = datosReceta[2];
+            String pasosReceta = datosReceta[3];
+            <span style='color:#3F7F5F'>//se tratan los pasos
+  </span>          String[] arrPasos = pasosReceta.split(<span style='color:#2A00FF'>"\\|"</span>);
+            <span style='color:#3F7F5F'>//se crea un conjunto de pasos
+  </span>          LinkedList&lt;Paso&gt; conjuntoPasos = <span style='font-weight:bold;color:#7B0052;'>new</span> LinkedList&lt;&gt;();
+            <span style='font-weight:bold;color:#7B0052;'>for</span> (String arrP : arrPasos) <span style='font-weight:bold;color:#D3171B'>{</span>
+              <span style='color:#3F7F5F'>//se separan los pasos de los ingredientes,...
+  </span>            String[] splitPasos = arrP.split(<span style='color:#2A00FF'>"-"</span>);
+              Accion accion = <span style='font-weight:bold;color:#7B0052;'>new</span> Accion(splitPasos[0]);
+              String descripcion = splitPasos[4];
+              String nombreIngrediente = splitPasos[1];
+              <span style='font-weight:bold;color:#7B0052;'>double</span> precioIngrediente = Double.parseDouble(splitPasos[2]);
+              Ingrediente ingrediente = <span style='font-weight:bold;color:#7B0052;'>new</span> Ingrediente(nombreIngrediente, precioIngrediente);
+              <span style='color:#3F7F5F'>//añadimos los ingredientes a la coleccion de ingredientesExistentes.
+  </span>            ingredientesExistentes.put(nombreIngrediente, ingrediente);
+              <span style='font-weight:bold;color:#7B0052;'>double</span> tiempoPorPaso = Double.parseDouble(splitPasos[3]);
+              Paso p = <span style='font-weight:bold;color:#7B0052;'>new</span> Paso(accion, ingrediente, tiempoPorPaso, descripcion);
+              conjuntoPasos.add(p);
+            <span style='font-weight:bold;color:#D3171B'>}</span>
+            <span style='color:#3F7F5F'>//se crea la receta y se añade, estamos tratando strings asique debemos castear el doble
+  </span>          Receta r = <span style='font-weight:bold;color:#7B0052;'>new</span> Receta(nombreReceta, conjuntoPasos, Double.parseDouble(precioReceta));
+            addReceta(r);
+          <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (Exception e) <span style='font-weight:bold;color:#D3171B'>{</span>
+          <span style='font-weight:bold;color:#D3171B'>}</span>
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+        entrada.close();
+      <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (IOException e) <span style='font-weight:bold;color:#D3171B'>{</span>
+        System.out.println(<span style='color:#2A00FF'>"Fallo al leer el fichero"</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      System.out.println(<span style='color:#2A00FF'>"Importacion de recetas completada satisfactoriamente."</span>);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Metodo para comprobar si ya existe un ingrediente en alguna de las recetas
+     * de ser asi, usara ese ingrediente a la hora de crear una nueva.
+     * @param nombreIngrediente
+     * @return
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>boolean</span> comprobarExistenciaIngrediente(String nombreIngrediente) <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>boolean</span> confirmacion = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+        <span style='font-weight:bold;color:#7B0052;'>if</span> (ingredientesExistentes.containsKey(nombreIngrediente)) <span style='font-weight:bold;color:#D3171B'>{</span>
+          confirmacion = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> confirmacion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+   
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

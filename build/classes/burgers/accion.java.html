@@ -1,0 +1,48 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='color:#3F5FBF'>/**
+   * Clase Accion, destinada a almacenar las acciones de cada Paso.
+   * @author Daniel Campos Tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Accion <span style='font-weight:bold;color:#D3171B'>{</span>
+  
+    <span style='font-weight:bold;color:#7B0052;'>private</span> String nombre;
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor completo de una Accion.
+     * @param nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Accion(String nombre) <span style='font-weight:bold;color:#D3171B'>{</span>
+      setNombre(nombre);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que devuelve el nombre de una Accion.
+     * @return nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String getNombre() <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      <span style='font-weight:bold;color:#7B0052;'>return</span> paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que permite cambiar el nombre de una Accion.
+     * @param nombre
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setNombre(String nombre) <span style='font-weight:bold;color:#D3171B'>{</span>
+      String paramNombre = <span style='font-weight:bold;color:#7B0052;'>new</span> String(nombre);
+      this.nombre = paramNombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que devuelve los parametros de una Accion.
+     * @return
+     */</span>
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String toString() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> nombre;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+  
+    
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

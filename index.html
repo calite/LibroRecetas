@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Burgers</title>
+    <style>
+        body {
+            margin: 0 auto;
+        }
+
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        header div h1 {
+            text-align: center;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-around;
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        section {
+            width: 100%;
+        }
+
+        article {
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            border: 1px solid black;
+        }
+
+        .presentacion {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .botonera {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .botonera button {
+            width: 200px;
+        }
+
+        article h2,
+        h3 {
+            text-decoration: underline;
+        }
+
+        article h5 {
+            font-style: italic;
+        }
+
+        article div {
+            width: 80%;
+            margin: 15px;
+        }
+
+        article button {
+            margin: 0 auto;
+            padding: 15px;
+            color: black;
+            background-color: white;
+            border: 2px solid black;
+        }
+
+        article div div {
+            margin: 0 auto;
+            background-color: aliceblue;
+            border: 1px solid black;
+        }
+
+        .contenedor-footer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        #desplegable-clases {
+            display: none;
+            position: absolute;
+        }
+
+        .clases:hover #desplegable-clases {
+            display: block;
+        }
+
+        #desplegable-diagramas {
+            display: none;
+            position: absolute;
+        }
+
+        button:hover {
+            color: white;
+            background-color: black;
+            transition: 1.0s;
+        }
+
+        .diagramas:hover #desplegable-diagramas {
+            display: block;
+        }
+
+        #contentenidoRestaurante,
+        #contenidoPaso,
+        #contenidoAccion,
+        #contenidoIngrediente,
+        #contenidoMain,
+        #contenidoReceta,
+        #contenidoDiagrama,
+		#contenidoMemoria {
+            display: none;
+        }
+    </style>
+    <script>
+        function cargarHtml(caja, archivo) {
+            if (window.getComputedStyle(document.querySelector('.' + caja + '')).display == 'none') {
+                document.getElementById(caja).style.display = 'block';
+                document.getElementById(caja).innerHTML = '<object type="text/html" data="' + archivo + '" style="width:100%;height:500px"></object>';
+            } else {
+                document.getElementById(caja).style.display = 'none';
+            }
+        }
+
+        function mostrarFoto(caja) {
+            if (window.getComputedStyle(document.querySelector('.' + caja + '')).display == 'none') {
+                document.getElementById(caja).style.display = 'block';
+            } else {
+                document.getElementById(caja).style.display = 'none';
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="contenedor">
+        <header>
+            <div>
+                <h1>PROYECTO FINAL PROGRAMACIÓN</h1>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <article class="presentacion">
+                    <div>
+                        <h2>Presentación</h2>
+                        <p>Nombre del proyecto: Burgers</p>
+                        <p>Nombre del autor: Daniel Campos Tello</p>
+                        <p>Curso: DAM1</p>
+                        <p>Año: 2022</p>
+                    </div>
+                    <div class="botonera">
+                        <button onclick="mostrarFoto('contenidoDiagrama')">Diagrama de clases</button>
+                        <button onclick="mostrarFoto('contenidoMemoria')">Diagrama en ejecución</button>
+                        <div class="contenidoDiagrama" id="contenidoDiagrama">
+                            <img src="diagrama-de-clases.png" alt="diagrama de clases">
+                        </div>
+						<div class="contenidoMemoria" id="contenidoMemoria">
+                            <img src="diagrama-de-memoria.png" alt="diagrama de memoria" width="450px">
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h2>Breve Introducción</h2>
+                        <p>El proyecto se basa en una gestión de recetas, permitiendo añadir y borrar.</p>
+                        <p>
+                            Ademas se ha implementado el poder almacenar la información de la aplicación en un fichero
+                            de texto, para usarlo a modo de base de datos. Esto nos permite tener cargado desde una
+                            primera ejecución las recetas necesarias, sin necesidad de tenerlas declaradas
+                            en el main.
+                        </p>
+                        <p>
+                            Se han hecho uso de diferentes colecciones, listas(LinkedList), conjuntos(hashSet,LinkedHashSet) y
+                            mapas(TreeMap y hashMap).
+                        </p>
+                        <p>
+                            La idea principal es añadir una serie de recetas a una coleccion(treeMap), las recetas se
+                            componen de Pasos y estos a su vez se componen de Acciones sobre Ingredientes.
+                        </p>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h2>Explicación de Clases</h2>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Restaurante</h3>
+                        <p>
+                            La clase Restaurante es la encargada de almacenar las Recetas, lo hace ayudandose de un
+                            TreeMap. La parte mas destacable de esta clase seria la capacidad de crear recetas, imprimir
+                            las recetas y ademas el poder importar y/o exportar esas recetas a un
+                            fichero .txt nuevo. Como atributos cuenta con la coleccion del tipo HashMap y otro del tipo
+                            File.
+                        </p>
+                        <p>
+                            Ademas se ha añadido la funcionalidad de almacenar los Ingredientes en una coleccion del tipo hashMap,
+                            para que una vez queramos crear una receta nueva, a la hora de preguntar al usuario por los ingredientes
+                            la aplicación comprobara si existe ese ingrediente, si no lo esta creara uno nuevo y lo añadira a la colección.
+                        </p>
+                        <h4>Metodos destacados</h4>
+                        <h5>crearReceta()</h5>
+                        <p>
+                            Este metodo nos permite, a traves de un menu generado con JOptionPane ir añadiendo
+                            ingredientes a la colección.
+                            Ademas se comprobara si existe ese ingrediente en alguna de las recetas almacenadas, si existe, 
+                            recopilara la información de ese ingrediente ya existente evitando asi tener ingredientes duplicados.
+                        </p>
+                        <h5>cocinarReceta()</h5>
+                        <p>Es el encargado de imprimir los Pasos a seguir para cocinar la receta.</p>
+                        <h5>exportarReceta()</h5>
+                        <p>
+                            Este metodo recibe un boolean como parametro para indicar internamente, si queremos guardar
+                            o no el contenido de la colección en un fichero aparte. Con la ayuda de las clases
+                            FileReader y PrintWriter, recorremos la colección e imprimimos linea a linea
+                            en el fichero. La idea de estos dos metodos es la de transformar el contenido de un objeto
+                            para almacenarlo o recogerlo desde el fichero.
+                        </p>
+                        <h5>importarRecetas()</h5>
+                        <p>
+                            Al contrario que el metodo anterior, este es el encargado de recoger la información del
+                            fichero, en este caso se han usado las clases FileReader y BufferedReader para realizar el
+                            trabajo. Nuevamente lo que se consigue es recogere un String y manipularlo
+                            en cada iteración del bucle para posteriormente almacenarlo en variables separadas y con la
+                            ayuda del constructor de la clase Receta se instancia un objeto de dicha clase y por ultimo
+                            se almacena en la colección.
+                        </p>
+                        <button
+                            onclick="cargarHtml('contentenidoRestaurante','src/burgers/restaurante.java.html')">Codigo
+                            de Restaurante</button>
+                        <div class="contentenidoRestaurante" id="contentenidoRestaurante"></div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Receta</h3>
+                        <p>La clase receta almacena la informacion referente a cada receta, cuenta con un nombre, un
+                            LinkedHashSet para los Pasos y por ultimo un precio total. Cuenta con 3 constructores, uno
+                            completo, otro vacio
+                            y por ultimo otro al que le pasamos un solo parametro, el nombre. Ademas esta clase cuenta
+                            con unos metodos que se usan de forma interna y estan destinados para darle formato a un
+                            string que se usara posteriormente para la
+                            importación/exportación.
+                        </p>
+                        <h4>metodos destacables</h4>
+                        <h5>precioTotal()</h5>
+                        <p>Calculara el precio de la receta sumando el precio de todos los ingredientes que la componen.
+                        </p>
+                        <h5>imprimirIngredientes()</h5>
+                        <p>Basicamente construye un string con todos los ingredientes.</p>
+                        <h5>CalcularTiempo()</h5>
+                        <p>Al igual que precioTotal() este metodo se encarga de calcular el tiempo estimado que tarda en
+                            hacerse una receta. Se calcula a partir del tiempo que lleva cada paso.
+                        </p>
+                        <h5>elaboracion()</h5>
+                        <p>recorre los pasos para imprimirlos uno a uno.</p>
+                        <button onclick="cargarHtml('contenidoReceta','src/burgers/receta.java.html')">Codigo de
+                            Receta</button>
+                        <div class="contenidoReceta" id="contenidoReceta"></div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Paso</h3>
+                        <p>La siguiente clase es la encargada de guardar información referente a los pasos, se compone
+                            de Ingrediente, Accion, tiempo y descripción.</p>
+                        <button onclick="cargarHtml('contenidoPaso','src/burgers/paso.java.html')">Codigo de
+                            Paso</button>
+                        <div class="contenidoPaso" id="contenidoPaso"></div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Accion</h3>
+                        <p>Esta clase sirve para almacenar en forma de String la accion a realizar sobre los
+                            ingredientes.</p>
+                        <button onclick="cargarHtml('contenidoAccion','src/burgers/accion.java.html')">Codigo de
+                            Accion</button>
+                        <div class="contenidoAccion" id="contenidoAccion"></div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Ingrediente</h3>
+                        <p>
+                            La clase Ingrediente esta destinada para almacenar la información de los ingredientes.
+                        </p>
+                        <button onclick="cargarHtml('contenidoIngrediente','src/burgers/ingrediente.java.html')">Codigo
+                            de Ingrediente</button>
+                        <div class="contenidoIngrediente" id="contenidoIngrediente"></div>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h3>Main</h3>
+                        <p>El main del programa, basicamente cuenta con un menu de opciones.</p>
+                        <button onclick="cargarHtml('contenidoMain','src/burgers/burgers.java.html')">Codigo del
+                            Main</button>
+                        <div class="contenidoMain" id="contenidoMain"></div>
+                    </div>
+                </article>
+            </section>
+        </main>
+        <footer>
+            <div class="contenedor-footer">
+                <div>Daniel Campos Tello</div>
+                <div>DAM 1</div>
+                <div>Programación</div>
+                <div>2022</div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='color:#3F5FBF'>/**
+   * Clase Paso, destinada a almacenar la información de los pasos de una Receta.
+   * @author Daniel Campos Tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Paso <span style='font-weight:bold;color:#D3171B'>{</span>
+  
+    <span style='font-weight:bold;color:#7B0052;'>private</span> Accion accion;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> Ingrediente ingrediente;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>double</span> tiempo;
+    <span style='font-weight:bold;color:#7B0052;'>private</span> String descripcion;
+  
+    <span style='color:#3F5FBF'>/**
+     * Constructor vacio de un Paso.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Paso() <span style='font-weight:bold;color:#D3171B'>{</span>
+    
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Constructor completo de la clase Paso.
+     * @param accion
+     * @param ingrediente
+     * @param tiempo
+     * @param descripcion para describir mas extensamente el Paso a realizar.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Paso(Accion accion, Ingrediente ingrediente, <span style='font-weight:bold;color:#7B0052;'>double</span> tiempo, String descripcion) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.accion = accion;
+      this.ingrediente = ingrediente;
+      this.tiempo = tiempo;
+      this.descripcion = descripcion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo que devuelve una Accion
+     * @return
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Accion getAccion() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> accion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo para cambiar una accion
+     * @param accion
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setAccion(Accion accion) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.accion = accion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que devuelve el Ingrediente de un Paso.
+     * @return Ingrediente.
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> Ingrediente getIngrediente() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> ingrediente;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que permite cambiar el Ingrediente de un Paso.
+     * @param ingrediente
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setIngrediente(Ingrediente ingrediente) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.ingrediente = ingrediente;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * metodo que deevuelve una Descripcion de un Paso.
+     * @return
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String getDescripcion() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> descripcion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/** 
+     * metodo para cambiar una Descripcion de un Paso.
+     * @param descripcion
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setDescripcion(String descripcion) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.descripcion = descripcion;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Metodo que devuelve el tiempo de un Paso.
+     * @return tiempo
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> getTiempo() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> tiempo;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * Metodo que permite cambiar el tiempo de un Paso.
+     * @param tiempo
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setTiempo(<span style='font-weight:bold;color:#7B0052;'>double</span> tiempo) <span style='font-weight:bold;color:#D3171B'>{</span>
+      this.tiempo = tiempo;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Metodo para imprimir un paso.
+     * @return
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String imprimirPaso() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> getAccion() + <span style='color:#2A00FF'>" "</span> + getIngrediente().getNombre() + <span style='color:#2A00FF'>": "</span> + getDescripcion();
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+    <span style='color:#3F5FBF'>/**
+     * Metodo toString
+     * @return
+     */</span>
+    @Override
+    <span style='font-weight:bold;color:#7B0052;'>public</span> String toString() <span style='font-weight:bold;color:#D3171B'>{</span>
+      <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"Paso{"</span> + <span style='color:#2A00FF'>"accion="</span> + accion + <span style='color:#2A00FF'>", ingrediente="</span> + ingrediente + <span style='color:#2A00FF'>", tiempo="</span> + tiempo + <span style='color:#2A00FF'>", descripcion="</span> + descripcion + <span style='color:#2A00FF'>'}'</span>;
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+   
+  
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

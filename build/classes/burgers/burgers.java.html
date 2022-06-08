@@ -1,0 +1,70 @@
+<pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> burgers;
+
+  <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.Scanner;
+  
+  <span style='color:#3F5FBF'>/**
+   * Main de la aplicacion.
+   * @author daniel campos tello
+   */</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Burgers <span style='font-weight:bold;color:#D3171B'>{</span>
+  
+    <span style='color:#3F5FBF'>/**
+     * @param args the command line arguments
+     */</span>
+    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>static</span> <span style='font-weight:bold;color:#7B0052;'>void</span> main(String[] args) <span style='font-weight:bold;color:#D3171B'>{</span>
+      Restaurante restaurante = <span style='font-weight:bold;color:#7B0052;'>new</span> Restaurante();
+      
+      restaurante.importarRecetas();
+      
+      <span style='font-weight:bold;color:#7B0052;'>int</span> opcionMenu = 0;
+      <span style='font-weight:bold;color:#7B0052;'>int</span> seleccion = 0;
+      <span style='font-weight:bold;color:#7B0052;'>boolean</span> salir = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+      <span style='font-weight:bold;color:#7B0052;'>do</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+        salir = <span style='font-weight:bold;color:#7B0052;'>true</span>;
+        <span style='font-weight:bold;color:#7B0052;'>try</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+          System.out.println(<span style='color:#2A00FF'>"Elige una opcion: "</span>);
+          System.out.println(<span style='color:#2A00FF'>"1 - Listar recetas | 2 - Cocinar receta | 3 - Crear receta | 4 - Borrar receta | 5 - Exportar recetas a otro fichero | 6 - Guardar y Salir del programa"</span>);
+          Scanner sc = <span style='font-weight:bold;color:#7B0052;'>new</span> Scanner(System.in);
+          opcionMenu = sc.nextInt();
+          <span style='font-weight:bold;color:#7B0052;'>switch</span> (opcionMenu) <span style='font-weight:bold;color:#D3171B'>{</span>
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 1:
+              restaurante.imprimirRecetas();
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 2:
+              System.out.println(<span style='color:#2A00FF'>"Dime el nº de receta que quieres cocinar: "</span>);
+              seleccion = sc.nextInt();
+              restaurante.cocinarReceta(seleccion);
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 3:
+              restaurante.crearReceta();
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 4:
+              System.out.println(<span style='color:#2A00FF'>"Dime el nº de receta que quieres borrar: "</span>);
+              seleccion = sc.nextInt();
+              restaurante.delReceta(seleccion);
+              System.out.println(<span style='color:#2A00FF'>"receta borrada."</span>);
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 5:
+                restaurante.exportarRecetas(<span style='font-weight:bold;color:#7B0052;'>true</span>);
+                <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            <span style='font-weight:bold;color:#7B0052;'>case</span> 6:
+              System.out.println(<span style='color:#2A00FF'>"Guardando cambios..."</span>);
+              restaurante.exportarRecetas(<span style='font-weight:bold;color:#7B0052;'>false</span>);
+              System.out.println(<span style='color:#2A00FF'>"Saliendo del programa..."</span>);
+              sc.close();
+              <span style='color:#3F7F5F'>//para cerrar el programa definitivamente, dado que joption pane lo matiene funcionando.
+  </span>            System.exit(0);
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+            default:
+              System.out.println(<span style='color:#2A00FF'>"Eso no es una opcion."</span>);
+              <span style='font-weight:bold;color:#7B0052;'>break</span>;
+          <span style='font-weight:bold;color:#D3171B'>}</span>
+  
+        <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>catch</span> (Exception e) <span style='font-weight:bold;color:#D3171B'>{</span>
+          System.out.println(<span style='color:#2A00FF'>"Opcion no valida."</span>);
+          salir = <span style='font-weight:bold;color:#7B0052;'>false</span>;
+        <span style='font-weight:bold;color:#D3171B'>}</span>
+      <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>while</span> (opcionMenu != 6 || salir == <span style='font-weight:bold;color:#7B0052;'>false</span>);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    
+  <span style='font-weight:bold;color:#D3171B'>}</span></pre>

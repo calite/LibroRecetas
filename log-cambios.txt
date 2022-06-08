@@ -1,0 +1,10 @@
+- Se cambia la coleccion de recetas de la clase restaurante por un TreeMap.
+- Se sustituye la coleccion de pasos por un LinkedList.
+- Se crea una nueva funcion en receta para redondear el precio final de las recetas.
+- Se añade el metodo equals y hash a la clase Receta para evitar duplicar ingredientes.
+- Se elimina el metodo estaIngredienteEnLista().
+- Se mejora el metodo crearReceta(), ahora se pueden meter "," a la hora de indicar el precio.
+	Si el usuario intenta meter algun dato que no procede se lo vuelve a preguntar.
+--Se añade una nueva funcionalidad, se almacenaran los ingredientes existentes en las recetas en un hashMap
+	si a la hora de crear una receta existe ese ingrediente en la coleccion, no se creara uno nuevo. 
+	Evitando asi la creacion de ingredientes duplicados y el preguntar en exceso al usuario.
